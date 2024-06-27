@@ -1,19 +1,21 @@
-const { createBareServer } = require("@tomphttp/bare-server-node");
-const express = require("express");
-const { join } = require('node:path');
-const { createServer } = require("node:http");
-const { uvPath } = require("@titaniumnetwork-dev/ultraviolet");
-const { hostname } = require("node:os");
-const { createProxyMiddleware } = require('http-proxy-middleware');
+import { createBareServer } from "@tomphttp/bare-server-node";
+import express from "express";
+import { createServer } from"node:http";
+import { uvPath } from"@titaniumnetwork-dev/ultraviolet";
+import { hostname } from "node:os";
 
 const bare = createBareServer("/bare/");
 const app = express();
 
-app.use((req, res, next) => {
-  res.status(404).sendFile(join(__dirname, '/public/404.html'));
-});
-
 const server = createServer();
+const port = 8080;
+
+app.use(express.static('public'));
+app.use("/uv/", express.static(uvPath));
+
+app.get('*', function(req, res) {
+  res.send('404');
+});
 
 server.on("request", (req, res) => {
   if (bare.shouldRoute(req)) {
@@ -31,15 +33,11 @@ server.on("upgrade", (req, socket, head) => {
   }
 });
 
-let port = parseInt(process.env.PORT || "");
 
-if (isNaN(port)) port = 8080;
 
 server.on("listening", () => {
   const address = server.address();
 
-  // by default we are listening on 0.0.0.0 (every interface)
-  // we just need to list a few
   console.log("Listening on:");
   console.log(`\thttp://localhost:${address.port}`);
   console.log(`\thttp://${hostname()}:${address.port}`);
