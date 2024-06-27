@@ -9,6 +9,9 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const bare = createBareServer("/bare/");
 const app = express();
 
+app.use("/uv/", express.static(uvPath));
+app.use(express.static('public'));
+
 app.use((req, res, next) => {
   res.status(404).sendFile(join(__dirname, '/public/404.html'));
 });
