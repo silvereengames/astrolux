@@ -20,18 +20,16 @@ const error = document.getElementById("proxy-error");
  */
 const errorCode = document.getElementById("proxy-error-code");
 
+try {
+  registerSW();
+} catch (err) {
+  console.log(err.toString());
+  throw err;
+}
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  try {
-    await registerSW();
-  } catch (err) {
-    console.log(err.toString());
-    throw err;
-  }
-
   const url = search(address.value, searchEngine.value);
-  let frame = document.getElementById("uv-frame");
-  frame.style.display = "block";
-  frame.src = __uv$config.prefix + __uv$config.encodeUrl(url);
+  location.href = __uv$config.prefix + __uv$config.encodeUrl(url);
 });
