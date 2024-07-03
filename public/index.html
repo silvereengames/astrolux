@@ -1,21 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
+
+<body>
+    <div class="proxy-outer-container" id="proxy-outer-container">
+        <div class="proxy-container" id="proxy-container">
+            <span class="material-symbols-outlined close-icon" id="close-icon">
+                close
+            </span>
+            <iframe id="iframe" src="" class="iframe"></iframe>
+        </div>
+    </div>
+    <div class="search-container">
+        <h1 class="title center">Astrolux.</h1>
+        <form id="proxy-form">
+            <input id="proxy-search-engine" value="https://www.google.com/search?q=%s" type="hidden" />
+            <input id="proxy-address" type="text" class="search-input search" placeholder="Search" />
+        </form>
+    </div>
+    <script>
+        document.body.addEventListener('mousemove', function (e) {
+            var windowHeight = window.innerHeight;
+            var y = e.clientY;
+
+            // Calculate how far the gradient should move based on mouse Y position
+            // Mapping mouseY position to a range from -100px to +100px from the bottom
+            var moveRange = -100; // Total movement range in pixels
+            var offset = (y / windowHeight * moveRange) - (moveRange / 2);
+
+            // Apply the gradient style to the body with constrained movement
+            document.body.style.backgroundImage =
+                'linear-gradient(to bottom, #000000 ' + (80 - (offset / windowHeight * 100)) + '%, #101010 100%)';
+        });
+
+        function closeProxy() {
+            document.getElementById('proxy-container').classList.add('proxy-close-animation');
+            document.getElementById('close-icon').style.display = 'none';
+
+            setTimeout(hideproxy, 1000);
+        }
+
+        function hideproxy() {
+            document.getElementById('proxy-outer-container').style.display = 'none';
+            document.getElementById('close-icon').style.display = 'block';
+            document.getElementById('iframe').src = "";
+        }
+
+        document.getElementById('close-icon').addEventListener('click', closeProxy);
+    </script>
+    <script src="uv/uv.bundle.js" defer></script>
+    <script src="uv/uv.config.js" defer></script>
+    <script src="uv/register-sw.js" defer></script>
+    <script src="uv/search.js" defer></script>
+    <script src="uv/proxy.js" defer></script>
+</body>
+
 </html>
-<div class="search-container">
-    <h1 class="title center">Astrolux.</h1>
-    <form id="proxy-form">
-        <input id="proxy-search-engine" value="https://www.google.com/search?q=%s" type="hidden" />
-        <input id="proxy-address" type="text" class="search-input search" placeholder="Search" />
-    </form>
-</div>
-<script src="uv/uv.bundle.js" defer></script>
-<script src="uv/uv.config.js" defer></script>
-<script src="uv/register-sw.js" defer></script>
-<script src="uv/search.js" defer></script>
-<script src="uv/proxy.js" defer></script>

@@ -31,5 +31,9 @@ form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const url = search(address.value, searchEngine.value);
-  location.href = __uv$config.prefix + __uv$config.encodeUrl(url);
+  document.getElementById('proxy-container').classList.remove('proxy-close-animation');
+  document.getElementById('proxy-outer-container').style.display='flex';
+  document.getElementById('proxy-container').classList.add('proxy-open-animation');
+  document.getElementById('iframe').src = __uv$config.prefix + __uv$config.encodeUrl(url);
+  //ocation.href = 
 });

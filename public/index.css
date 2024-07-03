@@ -6,8 +6,14 @@ body {
     background-repeat: no-repeat;
     color: #ededed;
     font-family: "Poppins", sans-serif;
-    min-height: 100vh; /* This ensures the body takes at least the full height of the viewport */
+    min-height: 100vh;
     margin: 0;
+    transition: background-image 0.5s ease;
+    /* Smooth transition for gradient change */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .title {
@@ -24,11 +30,16 @@ body {
 
 .search-container {
     display: flex;
-    flex-direction: column; /* Align children vertically */
-    justify-content: center; /* Center children vertically in the container */
-    align-items: center; /* Center children horizontally in the container */
-    height: 90vh; /* Make the search container take the full height of the viewport */
-    margin: 0 auto; /* Center the container on the page horizontally */
+    flex-direction: column;
+    /* Align children vertically */
+    justify-content: center;
+    /* Center children vertically in the container */
+    align-items: center;
+    /* Center children horizontally in the container */
+    height: 90vh;
+    /* Make the search container take the full height of the viewport */
+    margin: 0 auto;
+    /* Center the container on the page horizontally */
 }
 
 .search {
@@ -48,4 +59,76 @@ body {
 
 .search:focus {
     width: 400px;
+}
+
+.proxy-container {
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    background-color: #1a1a1a;
+    transform-origin: 50% 50%;
+}
+
+.proxy-open-animation {
+    animation: proxy-open 1s ease-in-out;
+    animation-fill-mode: forwards;
+    border: 2px solid #1a1a1a;
+}
+
+@keyframes proxy-open {
+    from {
+        width: 1px;
+        height: 1px;
+        border-radius: 0px;
+    }
+
+    to {
+        width: 90%;
+        height: 90vh;
+        border-radius: 10px;
+    }
+}
+
+.proxy-close-animation {
+    animation: proxy-close 1s ease-in-out;
+    animation-fill-mode: forwards;
+    border: none;
+}
+
+@keyframes proxy-close {
+    from {
+        width: 90%;
+        height: 90vh;
+        border-radius: 10px;
+    }
+
+    to {
+        width: 1px;
+        height: 1px;
+        border-radius: 0px;
+    }
+}
+
+
+.proxy-outer-container {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+}
+
+.close-icon {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    cursor: pointer;
 }
