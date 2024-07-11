@@ -1,17 +1,21 @@
-import { createBareServer } from "@tomphttp/bare-server-node";
 import express from "express";
 import { createServer } from "node:http";
-import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { hostname } from "node:os";
+import { createBareServer } from "@tomphttp/bare-server-node";
+import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
+import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
+import wisp from "wisp-server-node"
 
 const bare = createBareServer("/bare/");
 const app = express();
 
 app.use(express.static("./public"));
-app.use("/uv/", express.static(uvPath));
+// app.use("/uv/", express.static(uvPath));
+app.use("/epoxy/", express.static(epoxyPath));
+app.use("/baremux/", express.static(baremuxPath));
 
 // Error for everything else
-app.get('*', function(req, res) {
+app.get('*', function (req, res) {
   res.send('404');
 });
 
@@ -21,17 +25,14 @@ const server = createServer();
 server.on("request", (req, res) => {
   if (bare.shouldRoute(req)) {
     bare.routeRequest(req, res);
-  } else {
-    app(req, res);
-  }
+  } else app(req, res);
 });
-
 server.on("upgrade", (req, socket, head) => {
   if (bare.shouldRoute(req)) {
     bare.routeUpgrade(req, socket, head);
-  } else {
-    socket.end();
-  }
+  } else if (req.url.endsWith("/wisp/")) {
+    wisp.routeRequest(req, socket, head);
+  } else socket.end();
 });
 
 server.on("listening", () => {
@@ -43,8 +44,7 @@ server.on("listening", () => {
   console.log(`\thttp://localhost:${address.port}`);
   console.log(`\thttp://${hostname()}:${address.port}`);
   console.log(
-    `\thttp://${
-      address.family === "IPv6" ? `[${address.address}]` : address.address
+    `\thttp://${address.family === "IPv6" ? `[${address.address}]` : address.address
     }:${address.port}`
   );
 });
@@ -56,7 +56,6 @@ process.on("SIGTERM", shutdown);
 function shutdown() {
   console.log("SIGTERM signal received: closing HTTP server");
   server.close();
-  bare.close();
   process.exit(0);
 }
 
