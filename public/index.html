@@ -11,12 +11,39 @@
 </head>
 
 <body>
+    <button id="settingsButton" class="settingsButton">Settings</button>
     <div class="proxy-outer-container" id="proxy-outer-container">
         <div class="proxy-container" id="proxy-container">
             <span class="material-symbols-outlined close-icon" id="close-icon">
                 close
             </span>
-            <iframe id="iframe" src="" class="iframe"></iframe>
+            <span class="material-symbols-outlined fullscreen-icon" id="fullscreen-icon">
+                fullscreen
+            </span>
+            <span style="display: none;" class="material-symbols-outlined fullscreen-icon" id="fullscreen-exit">
+                fullscreen_exit
+            </span>
+            <iframe id="iframe" src="" class="iframe" scrolling="no"></iframe>
+        </div>
+    </div>
+    <div id="settings-outer-container" class="settings-outer-container">
+        <div id="settings-container" class="settings-container">
+            <span class="material-symbols-outlined close-icon" id="close-icon2">
+                close
+            </span>
+            <div class="settings" id="settings">
+                <div>
+                    <h1>About Blank:</h1>
+                    <button style="width: 30vh; height: 5vh;" class="button" onclick="openAboutBlank()">Open</button>
+                </div>
+                <div>
+                    <h1>Transport:</h1>
+                    <select style="width: 30vh; height: 5vh;" class="transportsel" id="transportsel">
+                        <option value="epoxy">Epoxy</option>
+                        <option value="bare">Bare</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
     <div class="search-container">
@@ -26,41 +53,15 @@
             <input id="proxy-address" type="text" class="search-input search" placeholder="Search" />
         </form>
     </div>
-    <script>
-        document.body.addEventListener('mousemove', function (e) {
-            var windowHeight = window.innerHeight;
-            var y = e.clientY;
-
-            // Calculate how far the gradient should move based on mouse Y position
-            // Mapping mouseY position to a range from -100px to +100px from the bottom
-            var moveRange = -100; // Total movement range in pixels
-            var offset = (y / windowHeight * moveRange) - (moveRange / 2);
-
-            // Apply the gradient style to the body with constrained movement
-            document.body.style.backgroundImage =
-                'linear-gradient(to bottom, #000000 ' + (80 - (offset / windowHeight * 100)) + '%, #101010 100%)';
-        });
-
-        function closeProxy() {
-            document.getElementById('proxy-container').classList.add('proxy-close-animation');
-            document.getElementById('close-icon').style.display = 'none';
-
-            setTimeout(hideproxy, 1000);
-        }
-
-        function hideproxy() {
-            document.getElementById('proxy-outer-container').style.display = 'none';
-            document.getElementById('close-icon').style.display = 'block';
-            document.getElementById('iframe').src = "";
-        }
-
-        document.getElementById('close-icon').addEventListener('click', closeProxy);
-    </script>
-    <script src="uv/uv.bundle.js" defer></script>
-    <script src="uv/uv.config.js" defer></script>
-    <script src="uv/register-sw.js" defer></script>
-    <script src="uv/search.js" defer></script>
-    <script src="uv/proxy.js" defer></script>
+    <script src="/stuff.js"></script>
+    <script src="/baremux/bare.cjs" defer></script>
+    <script src="/epoxy/index.js" defer></script>
+    <script src="/uv/bareTransport.js" defer></script>
+    <script src="/uv/uv.bundle.js" defer></script>
+    <script src="/uv/uv.config.js" defer></script>
+    <script src="/uv/register-sw.js" defer></script>
+    <script src="/uv/search.js" defer></script>
+    <script src="/uv/proxy.js" defer></script>
 </body>
 
 </html>

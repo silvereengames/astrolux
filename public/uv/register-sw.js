@@ -1,30 +1,35 @@
-"use strict";
-/**
- * Distributed with Ultraviolet and compatible with most configurations.
- */
 const stockSW = "/uv/sw.js";
-
-/**
- * List of hostnames that are allowed to run serviceworkers on http:
- */
 const swAllowedHostnames = ["localhost", "127.0.0.1"];
-
-/**
- * Global util
- * Used in 404.html and index.html
- */
-async function registerSW() {
-  if (
-    location.protocol !== "https:" &&
-    !swAllowedHostnames.includes(location.hostname)
-  )
-    throw new Error("Service workers cannot be registered without https.");
-
-  if (!navigator.serviceWorker)
-    throw new Error("Your browser doesn't support service workers.");
-
-  // Ultraviolet has a stock `sw.js` script.
-  await navigator.serviceWorker.register(stockSW, {
-    scope: __uv$config.prefix,
-  });
+var transport = localStorage.getItem("transport");
+if (!transport) {
+  transport = "epoxy";
+  localStorage.setItem("transport", transport);
 }
+
+async function registerSW(transportsel) {
+  if (!navigator.serviceWorker) {
+    if (
+      location.protocol !== "https:" &&
+      !swAllowedHostnames.includes(location.hostname)
+    )
+      throw new Error("Service workers cannot be registered without https.");
+
+    throw new Error("Your browser doesn't support service workers.");
+  }
+
+  await navigator.serviceWorker.register(stockSW);
+
+  if (transportsel == "epoxy") {
+    let wispUrl = (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/wisp/";
+    await BareMux.SetTransport("EpxMod.EpoxyClient", { wisp: wispUrl });
+  } else if (transportsel == "bare") {
+    let bareUrl = location.protocol + "//" + location.host + "/bare/";
+    await BareMux.SetTransport("BareMod.BareClient", bareUrl);
+  }
+
+//  When testing proxy support CLEAR service workers from 8080 (or whatever current port you are using)
+
+//  navigator.serviceWorker.register(stockSW).then(register => register.unregister().then(bool => console.log("Unregistered: " + bool)));
+
+}
+registerSW(transport);
