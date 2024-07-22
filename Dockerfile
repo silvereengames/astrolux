@@ -1,7 +1,9 @@
-FROM node:14
-WORKDIR ./
-COPY package*.json ./
+FROM node:lts
+# Create app directory
+WORKDIR /usr/src/app
+
+COPY ./ ./
+
 RUN npm install
-COPY . .
-CMD [ "node", "app.js" ]
-EXPOSE 8080
+
+CMD [ "node", "./index.js" ]
