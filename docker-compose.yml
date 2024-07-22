@@ -1,5 +1,5 @@
 services:
-  forum:
+  astrolux:
     restart: always
     build:
       context: ./
