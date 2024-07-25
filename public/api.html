@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astrolux API</title>
+    <link rel="icon" href="1.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 45px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Astrolux API</h1>
+    <p>With our URL based customizability options, you can make Astrolux look completely different then it is!</p>
+    <h2>Css Variables</h2>
+    <details>
+        <summary><strong>--bg1</strong></summary>
+        <p> This is the primary background color for Astrolux.</p>
+        <p><strong>Usage: </strong>{"--bg1":"#000000"}</p>
+    </details>
+
+    <details>
+        <summary><strong>--bg2</strong></summary>
+        <p> This is the secondary background color for Astrolux.</p>
+        <p><strong>Usage: </strong>{"--bg2":"#101010"}</p>
+    </details>
+
+    <details>
+        <summary><strong>--color</strong></summary>
+        <p> This is the main text color Astrolux will use.</p>
+        <p><strong>Usage: </strong>{"--color":"#ededed"}</p>
+    </details>
+
+    <details>
+        <summary><strong>--search-bg</strong></summary>
+        <p> This is the background the search box will use.</p>
+        <p><strong>Usage: </strong>{"--search-bg":"#1a1a1a"}</p>
+    </details>
+
+    <details>
+        <summary><strong>--input-bg</strong></summary>
+        <p> This is the background color all other inputs will use.</p>
+        <p><strong>Usage: </strong>{"--input-bg":"rgba(62, 62, 62, 0.13)"}</p>
+    </details>
+
+    <details>
+        <summary><strong>--placeholder</strong></summary>
+        <p> This is the color that placeholder text will use on input elements globally</p>
+        <p><strong>Usage: </strong>{"--placeholder":"#8f8f8f"}</p>
+    </details>
+
+    <details>
+        <summary><strong>--background-image</strong></summary>
+        <p> This will allow you to change the gradient, bgimage, or to a solid color</p>
+        <p><strong>Usage: </strong>{"--background-image":"linear-gradient(to bottom, #000000 60%, #101010 100%)"}</p>
+    </details>
+
+    <details>
+        <summary><strong>--font</strong></summary>
+        <p> This will allow you to change the font to any Google font or built in HTML font</p>
+        <p><strong>Usage: </strong>{"--font":"'Poppins'"}</p>
+    </details>
+    <br><br>
+
+    <h2>Url Querys</h2>
+    <p>To customize Astroslate by URL, you can use the following URL querys.</p>
+    <i>Example: https://astroslate.one?query1=test&query2=test&query3=text</i>
+    <br>
+    <details>
+        <summary><strong>?css=</strong></summary>
+        <p>This allows the user to define and change the css variables mentoned above</p>
+        <p><strong>Usage: </strong>?css={"--bg1":"blue","--bg2":"white","--color":"green"}</p>
+    </details>
+    <details>
+        <summary><strong>?=search</strong></summary>
+        <p>Automaticlly opens the search iframe window with the defined url</p>
+        <p><strong>Usage: </strong>?search=https://silvereen.net</p>
+    </details>
+</body>
+<details>
+    <summary><strong>?titlecloak=</strong></summary>
+    <p>Changes the title of the page.</p>
+    <p><strong>Usage: </strong>?titlecloak=Astrolux</p>
+</details>
+<details>
+    <summary><strong>?imgcloak=</strong></summary>
+    <p>Changes the title image of the page to the defined url</p>
+    <p><strong>Usage: </strong>?imgcloak=1.png</p>
+</details>
+<details>
+    <summary><strong>?title=</strong></summary>
+    <p>Changes the "Astrolux" header to the defined text</p>
+    <p><strong>Usage: </strong>?title=Astrolux</p>
+</details>
+<details>
+    <summary><strong>?titlecloak=</strong></summary>
+    <p>Changes the title of the page.</p>
+    <p><strong>Usage: </strong>?titlecloak=Astrolux</p>
+</details>
+<details>
+    <summary><strong>?panickey=</strong></summary>
+    <p>Changes the panic key to the defined key</p>
+    <p><strong>Usage: </strong>?panickey=~</p>
+</details>
+<details>
+    <summary><strong>?panicsite=</strong></summary>
+    <p>Changes the site when the panic key is clicked to the defined url</p>
+    <p><strong>Usage: </strong>?panicsite=https://classroom.google.com</p>
+</details>
+<br><br><br>
+<p>&copy; Silvereen Games LLC - Astrolux 2024 - <a href="https://github.com/silvereengames/astrolux">Source</a></p>
+</html>

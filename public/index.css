@@ -7,14 +7,16 @@
     --search-bg: #1a1a1a;
     --input-bg: rgba(62, 62, 62, 0.13);
     --placeholder: #8f8f8f;
+    --background-image: linear-gradient(to bottom, var(--bg1) 60%, var(--bg2) 100%);
+    --font: "Poppins", sans-serif;
 }
 
 body {
-    background-image: linear-gradient(to bottom, var(--bg1) 60%, var(--bg2) 100%);
+    background-image: var(--background-image);
     background-size: cover;
     background-repeat: no-repeat;
     color: var(--color);
-    font-family: "Poppins", sans-serif;
+    font-family: var(--font);
     min-height: 100vh;
     margin: 0;
     transition: background-image 0.5s ease;
