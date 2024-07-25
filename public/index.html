@@ -4,14 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Astrolux</title>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script src="https://kit.fontawesome.com/4b1519da7d.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="1.png" id="icon">
 </head>
 
 <body>
-    <button id="settingsButton" class="settingsButton">Settings</button>
+    <button id="settingsButton" class="settingsButton"><i class="fa-solid fa-gear"></i></button>
     <div class="proxy-outer-container" id="proxy-outer-container">
         <div class="proxy-container" id="proxy-container">
             <span class="material-symbols-outlined close-icon" id="close-icon">
@@ -23,7 +25,7 @@
             <span style="display: none;" class="material-symbols-outlined fullscreen-icon" id="fullscreen-exit">
                 fullscreen_exit
             </span>
-            <iframe id="iframe" src="" class="iframe" scrolling="no"></iframe>
+            <iframe id="iframe" src="" class="iframe"></iframe>
         </div>
     </div>
     <div id="settings-outer-container" class="settings-outer-container">
@@ -37,6 +39,18 @@
                     <button style="width: 30vh; height: 5vh;" class="button" onclick="openAboutBlank()">Open</button>
                 </div>
                 <div>
+                    <h1>Tab Cloak</h1>
+                    <input type="text" onchange="changetitle(this.value)" placeholder="Title" class="input">
+                    <input type="text" onchange="changeicon(this.value)" placeholder="Icon URL" class="input">
+                    <br>
+                    <input type="file" id="imageUpload" accept="image/*">
+                </div>
+                <div>
+                    <h1>Panic Key</h1>
+                    <input type="text" onchange="localStorage.setItem('panickey', this.value)" placeholder="Panic Key" class="input">
+                    <input type="text" onchange="localStorage.setItem('panicsite', this.value)" placeholder="Panic Website" class="input">
+                </div>
+                <div>
                     <h1>Transport:</h1>
                     <select style="width: 30vh; height: 5vh;" class="transportsel" id="transportsel">
                         <option value="epoxy">Epoxy</option>
@@ -47,7 +61,7 @@
         </div>
     </div>
     <div class="search-container">
-        <h1 class="title center">Astrolux.</h1>
+        <h1 class="title center" id="astrolux">Astrolux.</h1>
         <form id="proxy-form">
             <input id="proxy-search-engine" value="https://www.google.com/search?q=%s" type="hidden" />
             <input id="proxy-address" type="text" class="search-input search" placeholder="Search" />

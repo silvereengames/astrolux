@@ -98,7 +98,7 @@ document.getElementById('close-icon2').addEventListener('click', function () {
   setTimeout(hideSettings, 1000);
 })
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   var selectedTransport = localStorage.getItem('transport');
   if (selectedTransport) {
     document.getElementById('transportsel').value = selectedTransport;
@@ -109,3 +109,125 @@ document.getElementById('transportsel').addEventListener('change', function () {
   localStorage.setItem('transport', this.value);
   registerSW(this.value);
 })
+
+
+function changetitle(title) {
+  if (title == "") {
+    document.title = "Astrolux";
+    localStorage.setItem('title', "Astrolux");
+  } else {
+    document.title = title;
+    localStorage.setItem('title', title);
+  }
+
+}
+
+function changeicon(icon) {
+  if (icon == "") {
+    document.getElementById('icon').href = "1.png";
+    localStorage.setItem('icon', "1.png");
+  } else {
+    document.getElementById('icon').href = icon;
+    localStorage.setItem('icon', icon);
+  }
+
+}
+
+if (localStorage.getItem('title')) {
+  document.title = localStorage.getItem('title');
+}
+
+if (localStorage.getItem('icon')) {
+  document.getElementById('icon').href = localStorage.getItem('title');
+}
+
+document.getElementById('imageUpload').addEventListener('change', function (event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      document.getElementById('icon').href = e.target.result;
+      localStorage.setItem('icon', e.target.result);
+    }
+    reader.readAsDataURL(file);
+  }
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key == localStorage.getItem('panickey')) {
+    window.location.replace(localStorage.getItem('panicsite'));
+  }
+});
+const url = new URL(window.location.href);
+
+if (url.searchParams.get('title')) {
+  document.getElementById('astrolux').innerHTML = url.searchParams.get('title');
+  localStorage.setItem('astrolux', url.searchParams.get('title'));
+}
+
+if (url.searchParams.get('titlecloak')) {
+  changetitle(url.searchParams.get('titlecloak'));
+}
+
+if (url.searchParams.get('imgcloak')) {
+  changeicon(url.searchParams.get('imgcloak'));
+}
+
+if (url.searchParams.get('panickey')) {
+  localStorage.setItem('panickey', url.searchParams.get('panickey'))
+}
+
+if (url.searchParams.get('panicsite')) {
+  localStorage.setItem('panicsite', url.searchParams.get('panicsite'))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function setCSSVariables(variables) {
+  for (const [key, value] of Object.entries(variables)) {
+      document.documentElement.style.setProperty(key, value);
+  }
+}
+
+function serializeObjectToQueryParam(obj) {
+  return encodeURIComponent(JSON.stringify(obj));
+}
+
+function deserializeQueryParamToObject(queryParam) {
+  return JSON.parse(decodeURIComponent(queryParam));
+}
+
+// Function to change colors directly
+function changeColors() {
+  const cssVariables = {
+      '--main-bg-color': 'green',
+      '--main-text-color': 'blue'
+  };
+  
+  setCSSVariables(cssVariables);
+}
+
+// Check if there's a 'css' query parameter and apply the styles if found
+const urlParams = new URLSearchParams(window.location.search);
+const cssQueryParam = urlParams.get('css');
+
+if (cssQueryParam) {
+  const cssVariablesFromQuery = deserializeQueryParamToObject(cssQueryParam);
+  setCSSVariables(cssVariablesFromQuery);
+}
+
+// Example of setting CSS variables via a search query
+// You can generate the URL with the query string like this:
+const cssVariables = { '--main-bg-color': 'green', '--main-text-color': 'blue' };
+const serializedCSS = serializeObjectToQueryParam(cssVariables);

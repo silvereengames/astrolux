@@ -1,10 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+:root {
+    --bg1: #000000;
+    --bg2: #101010;
+    --color: #ededed;
+    --search-bg: #1a1a1a;
+    --input-bg: rgba(62, 62, 62, 0.13);
+    --placeholder: #8f8f8f;
+}
+
 body {
-    background-image: linear-gradient(to bottom, #000000 60%, #101010 100%);
+    background-image: linear-gradient(to bottom, var(--bg1) 60%, var(--bg2) 100%);
     background-size: cover;
     background-repeat: no-repeat;
-    color: #ededed;
+    color: var(--color);
     font-family: "Poppins", sans-serif;
     min-height: 100vh;
     margin: 0;
@@ -47,14 +56,36 @@ body {
     height: 40px;
     border: none;
     border-radius: 10px;
-    background-color: #1a1a1a;
-    color: #ededed;
+    background-color: var(--search-bg);
+    color: var(--color);
     transition: 0.3s;
     text-align: center;
 }
 
+.input {
+    width: 250px;
+    height: 40px;
+    background: var(--input-bg);
+    border-radius: 16px;
+    backdrop-filter: blur(3.5px);
+    -webkit-backdrop-filter: blur(3.5px);
+    /* From https://css.glass */
+    border-radius: 16px;
+    backdrop-filter: blur(3.5px);
+    -webkit-backdrop-filter: blur(3.5px);
+    border: none;
+    color: var(--color);
+    text-align: center;
+
+}
+
+.input::placeholder {
+    color: var(--placeholder);
+    text-align: center;
+}
+
 .search::placeholder {
-    color: #8f8f8f;
+    color: var(--placeholder);
 }
 
 .search:focus {
@@ -65,14 +96,14 @@ body {
     width: 1px;
     height: 1px;
     position: absolute;
-    background-color: #1a1a1a;
+    background-color: var(--bg1);
     transform-origin: 50% 50%;
 }
 
 .proxy-open-animation {
     animation: proxy-open 1s ease-in-out;
     animation-fill-mode: forwards;
-    border: 2px solid #1a1a1a;
+    border: 2px solid var(--bg2);
 }
 
 @keyframes proxy-open {
@@ -150,7 +181,7 @@ body {
 .proxy-normal-animation {
     animation: proxy-normal 1s ease-in-out;
     animation-fill-mode: forwards;
-    border: 2px solid #1a1a1a;
+    border: 2px solid var(--bg2);
 }
 
 @keyframes proxy-normal {
@@ -206,7 +237,7 @@ body {
     font-size: 20px;
     margin: 4px;
     margin-left: 6px;
-    color: white;
+    color: var(--color);
     position: fixed;
     bottom: 0px;
     left: 0px;
@@ -226,7 +257,7 @@ body {
 
 .settings-container {
     position: absolute;
-    background-color: #1a1a1a;
+    background-color: var(--bg1);
     transform-origin: 50% 50%;
 }
 
@@ -242,7 +273,7 @@ body {
 .button {
     border-radius: 10px;
     border: none;
-    background-color: black;
+    background-color: var(--bg1);
     color: white;
     font-size: large;
     cursor: pointer;
@@ -251,7 +282,7 @@ body {
 .transportsel {
     border-radius: 10px;
     border: none;
-    background-color: black;
+    background-color: var(--bg1);
     color: white;
     font-size: large;
     text-align: center;
