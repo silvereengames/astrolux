@@ -181,7 +181,13 @@ if (url.searchParams.get('panicsite')) {
   localStorage.setItem('panicsite', url.searchParams.get('panicsite'))
 }
 
+if (localStorage.getItem('panickey')==null) {
+  localStorage.setItem('panickey', '`')==null
+}
 
+if (localStorage.getItem('panicsite')==null) {
+  localStorage.setItem('panicsite', 'https://classroom.google.com')==null
+}
 
 
 
