@@ -25,7 +25,7 @@ const wispUrl = (location.protocol === "https:" ? "wss" : "ws") + "://" + locati
 const bareUrl = location.protocol + "//" + location.host + "/bare/";
 var transport = localStorage.getItem("transport");
 if (!transport) {
-  transport = "epoxy";
+  transport = "libcurl";
   localStorage.setItem("transport", transport);
 }
 
