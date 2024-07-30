@@ -1,8 +1,11 @@
 import express from "express";
 import { createServer } from "node:http";
 import { hostname } from "node:os";
+import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { createBareServer } from "@tomphttp/bare-server-node";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
+import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
+import { bareModulePath } from "@mercuryworkshop/bare-as-module3";
 import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
 import wisp from "wisp-server-node"
 
@@ -10,8 +13,10 @@ const bare = createBareServer("/bare/");
 const app = express();
 
 app.use(express.static("./public"));
-// app.use("/uv/", express.static(uvPath));
+app.use("/uv/", express.static(uvPath));
 app.use("/epoxy/", express.static(epoxyPath));
+app.use("/libcurl/", express.static(libcurlPath));
+app.use("/bareasmodule/", express.static(bareModulePath));
 app.use("/baremux/", express.static(baremuxPath));
 
 // Error for everything else

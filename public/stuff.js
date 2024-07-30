@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.getElementById('transportsel').addEventListener('change', function () {
   localStorage.setItem('transport', this.value);
-  registerSW(this.value);
+  setTransport(this.value);
 })
 
 

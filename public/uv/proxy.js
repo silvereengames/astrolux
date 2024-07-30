@@ -20,26 +20,45 @@ const error = document.getElementById("proxy-error");
  */
 const errorCode = document.getElementById("proxy-error-code");
 
-form.addEventListener("submit", async (event) => {
-  event.preventDefault();
+const connection = new BareMux.BareMuxConnection("/baremux/worker.js")
+const wispUrl = (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/wisp/";
+const bareUrl = location.protocol + "//" + location.host + "/bare/";
+var transport = localStorage.getItem("transport");
+if (!transport) {
+  transport = "libcurl";
+  localStorage.setItem("transport", transport);
+}
 
-  const url = search(address.value, searchEngine.value);
+async function setTransport(transportsel) {
+  if (transportsel == "epoxy") {
+    await connection.setTransport("/epoxy/index.mjs", [{ wisp: wispUrl }]);
+  } else if (transportsel == "libcurl") {
+    await connection.setTransport("/libcurl/index.mjs", [{ wisp: wispUrl }]);
+  } else {    
+    await connection.setTransport("/bareasmodule/index.mjs", [ bareUrl ]);
+  }
+}
+setTransport(transport);
+
+function start(url) {
   document.getElementById('proxy-container').classList.remove('proxy-close-animation');
   document.getElementById('proxy-container').classList.remove('proxy-fullclose-animation');
   document.getElementById('proxy-outer-container').style.display = 'flex';
   document.getElementById('proxy-container').classList.add('proxy-open-animation');
   document.getElementById('settingsButton').style.display = 'none';
   document.getElementById('iframe').src = __uv$config.prefix + __uv$config.encodeUrl(url);
+}
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const url = search(address.value, searchEngine.value);
+  start(url);
 });
 
 const astroluxurl = new URL(window.location.href);
 
 if (url.searchParams.get('search')) {
   const searchurl = search(url.searchParams.get('search'), 'Google');
-  document.getElementById('proxy-container').classList.remove('proxy-close-animation');
-  document.getElementById('proxy-container').classList.remove('proxy-fullclose-animation');
-  document.getElementById('proxy-outer-container').style.display = 'flex';
-  document.getElementById('proxy-container').classList.add('proxy-open-animation');
-  document.getElementById('settingsButton').style.display = 'none';
-  document.getElementById('iframe').src = __uv$config.prefix + __uv$config.encodeUrl(searchurl);
+  start(searchurl);
 }
